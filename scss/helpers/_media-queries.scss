@@ -1,0 +1,19 @@
+@mixin media_queries($add_breakpoints: true) {
+    $breakpoints: map-merge((default_bp: null), $breakpoints);
+
+    @if $add_breakpoints {
+        $i: 1;
+        @each $bp_name, $bp_opts in $breakpoints {
+            @if $bp_name == default_bp {
+                @content("", $i);
+            } @else {
+                @media screen and (min-width: map-get($bp_opts, size)) {
+                    @content(map-get($bp_opts, syntax), $i);
+                }
+            }
+            $i: $i + 1;
+        }
+    } @else {
+        @content("", 1);
+    }
+}

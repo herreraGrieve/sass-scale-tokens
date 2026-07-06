@@ -1,0 +1,16 @@
+{
+  "name": "fitcss",
+  "version": "0.1.0",
+  "scripts": {
+    "start": "node build.js && node preview.js",
+    "purge": "purgecss --config purgecss.config.cjs"
+  },
+  "devDependencies": {
+    "sass": "^1.101.0",
+    "purgecss": "^5.0.0"
+  },
+  "dependencies": {
+    "mustache": "^4.2.0",
+    "sass-export": "^2.1.2"
+  }
+}

@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>fitcss — tokens</title>
+<link rel="stylesheet" href="css/fit.css">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: #fff;
+    color: #18181b;
+    padding: 2.5rem;
+    line-height: 1.5;
+    background-image: url("data:image/png;base64,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")
+  }
+  h1  {
+    font-size: 1.125rem;
+    font-weight: 600;
+    margin-bottom: 2rem;
+  }
+  h1 em {
+    font-style: normal;
+    font-weight: 400;
+    color: #a1a1aa;
+    }
+  h2  {
+    font-size: 3em;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: -2px;
+    color: #71717a;
+    margin-bottom: 1.25rem;
+    margin-top: 3rem;
+  }
+  h3  { font-size: .8125rem; font-weight: 500; color: #52525b; margin-bottom: .5rem; margin-top: 1.75rem; text-transform: capitalize; }
+  .ratio-label { font-family: 'SFMono-Regular', Menlo, monospace; font-size: .7rem; font-weight: 400; color: #a1a1aa; text-transform: none; }
+  code { font-family: 'SFMono-Regular', Menlo, monospace; font-size: .7rem; color: #71717a; display: block; }
+  .hint { font-size: .7rem; color: #a1a1aa; margin-top: -.75rem; margin-bottom: 1rem; }
+
+  /* Color matrix */
+  .color-matrix       { display: flex; flex-direction: column; gap: 0; }
+  .color-matrix-row   { display: flex; align-items: center }
+  .color-row-label    { width: 52px; flex-shrink: 0; font-size: .6875rem; font-weight: 600; color: #71717a; font-family: 'SFMono-Regular', Menlo, monospace; }
+  .color-hue-header   { width: 100px; flex-shrink: 0; font-size: .6875rem; font-weight: 600; color: #52525b; text-transform: capitalize; text-align: center; margin-bottom: .25rem; }
+  .swatch             { width: 100px; height: 40px; flex-shrink: 0; }
+  .swatch-empty       { width: 100px; height: 40px; border: 1px solid #d4d4d8; background: transparent; flex-shrink: 0; }
+
+  .type-row { display: flex; align-items: baseline; gap: 1.5rem; padding: .5rem 0; border-bottom: 1px solid #f4f4f5; }
+  .type-row:last-child { border-bottom: none; }
+
+  .spacing-columns { display: flex; gap: 2rem; align-items: flex-start; }
+  .spacing-col { flex: 1; min-width: 0; }
+  .spacing-col h3 { margin-top: 0; }
+  .spacing-row { display: flex; align-items: center; gap: .75rem; padding: .375rem 0; border-bottom: 1px solid #f4f4f5; }
+  .spacing-row:last-child { border-bottom: none; }
+  .spacing-vis { flex: 1; min-width: 0; }
+  .spacing-box { width: 32px; background: #6366f1; opacity: .2; border-radius: 2px; min-height: 2px; }
+
+  .label { width: 80px; flex-shrink: 0; }
+
+  .shadow-columns { display: flex; gap: 2rem; align-items: flex-start; }
+  .shadow-col { flex: 1; min-width: 0; }
+  .shadow-col h3 { margin-top: 0; }
+  .shadow-row { display: flex; align-items: center; gap: .75rem; padding: .5rem 0; border-bottom: 1px solid #f4f4f5; }
+  .shadow-row:last-child { border-bottom: none; }
+  .shadow-card { width: 36px; height: 36px; background: #fff; border-radius: 4px; margin: 6px; flex-shrink: 0; }
+
+  /* Base step highlight */
+  .color-matrix-row.is-base .color-row-label { color: #4f46e5; font-weight: 700; }
+  .type-row.is-base code,
+  .spacing-row.is-base code,
+  .shadow-row.is-base code { color: #4f46e5; }
+</style>
+</head>
+<body>
+  <h1>fitcss <em>/ design tokens</em></h1>
+
+  <section>
+    <h2>Colors</h2>
+    <div class="color-matrix">
+      <div class="color-matrix-row">
+        <div class="color-row-label"></div>
+        <div class="color-hue-header">slate</div><div class="color-hue-header">rose</div><div class="color-hue-header">indigo</div><div class="color-hue-header">emerald</div><div class="color-hue-header">amber</div>
+      </div>
+      <div class="color-matrix-row">
+        <div class="color-row-label">5</div>
+        <div class="swatch" style="background:#f0f2f4" title=".color-slate-5"></div><div class="swatch" style="background:#fef1f3" title=".color-rose-5"></div><div class="swatch" style="background:#eae9fc" title=".color-indigo-5"></div><div class="swatch" style="background:#e8fdf6" title=".color-emerald-5"></div><div class="swatch" style="background:#fff9f0" title=".color-amber-5"></div>
+      </div>
+      <div class="color-matrix-row">
+        <div class="color-row-label">4</div>
+        <div class="swatch" style="background:#d4d9e0" title=".color-slate-4"></div><div class="swatch" style="background:#fccdd5" title=".color-rose-4"></div><div class="swatch" style="background:#cbc8f7" title=".color-indigo-4"></div><div class="swatch" style="background:#b3f8e2" title=".color-emerald-4"></div><div class="swatch" style="background:#ffe8c0" title=".color-amber-4"></div>
+      </div>
+      <div class="color-matrix-row">
+        <div class="color-row-label">3</div>
+        <div class="swatch" style="background:#b7bfcb" title=".color-slate-3"></div><div class="swatch" style="background:#faaab7" title=".color-rose-3"></div><div class="swatch" style="background:#aca8f3" title=".color-indigo-3"></div><div class="swatch" style="background:#7ff4cd" title=".color-emerald-3"></div><div class="swatch" style="background:#ffd690" title=".color-amber-3"></div>
+      </div>
+      <div class="color-matrix-row">
+        <div class="color-row-label">2</div>
+        <div class="swatch" style="background:#9ba6b7" title=".color-slate-2"></div><div class="swatch" style="background:#f8869a" title=".color-rose-2"></div><div class="swatch" style="background:#8d87ee" title=".color-indigo-2"></div><div class="swatch" style="background:#4befb9" title=".color-emerald-2"></div><div class="swatch" style="background:#ffc460" title=".color-amber-2"></div>
+      </div>
+      <div class="color-matrix-row">
+        <div class="color-row-label">1</div>
+        <div class="swatch" style="background:#7e8da2" title=".color-slate-1"></div><div class="swatch" style="background:#f6637c" title=".color-rose-1"></div><div class="swatch" style="background:#6e67ea" title=".color-indigo-1"></div><div class="swatch" style="background:#17eba5" title=".color-emerald-1"></div><div class="swatch" style="background:#ffb231" title=".color-amber-1"></div>
+      </div>
+      <div class="color-matrix-row is-base">
+        <div class="color-row-label">base</div>
+        <div class="swatch" style="background:#64748B" title=".color-slate"></div><div class="swatch" style="background:#F43F5E" title=".color-rose"></div><div class="swatch" style="background:#4F46E5" title=".color-indigo"></div><div class="swatch" style="background:#10B981" title=".color-emerald"></div><div class="swatch" style="background:#F59E0B" title=".color-amber"></div>
+      </div>
+      <div class="color-matrix-row">
+        <div class="color-row-label">-1</div>
+        <div class="swatch" style="background:#546275" title=".color-slate--1"></div><div class="swatch" style="background:#f10f35" title=".color-rose--1"></div><div class="swatch" style="background:#291fdb" title=".color-indigo--1"></div><div class="swatch" style="background:#0e9d6e" title=".color-emerald--1"></div><div class="swatch" style="background:#d78700" title=".color-amber--1"></div>
+      </div>
+      <div class="color-matrix-row">
+        <div class="color-row-label">-2</div>
+        <div class="swatch" style="background:#45505f" title=".color-slate--2"></div><div class="swatch" style="background:#c20b2a" title=".color-rose--2"></div><div class="swatch" style="background:#2119af" title=".color-indigo--2"></div><div class="swatch" style="background:#0b825a" title=".color-emerald--2"></div><div class="swatch" style="background:#ae6d00" title=".color-amber--2"></div>
+      </div>
+      <div class="color-matrix-row">
+        <div class="color-row-label">-3</div>
+        <div class="swatch" style="background:#353d49" title=".color-slate--3"></div><div class="swatch" style="background:#910820" title=".color-rose--3"></div><div class="swatch" style="background:#191384" title=".color-indigo--3"></div><div class="swatch" style="background:#096647" title=".color-emerald--3"></div><div class="swatch" style="background:#855400" title=".color-amber--3"></div>
+      </div>
+      <div class="color-matrix-row">
+        <div class="color-row-label">-4</div>
+        <div class="swatch" style="background:#252b34" title=".color-slate--4"></div><div class="swatch" style="background:#610615" title=".color-rose--4"></div><div class="swatch" style="background:#110c58" title=".color-indigo--4"></div><div class="swatch" style="background:#064b34" title=".color-emerald--4"></div><div class="swatch" style="background:#5c3a00" title=".color-amber--4"></div>
+      </div>
+      <div class="color-matrix-row">
+        <div class="color-row-label">-5</div>
+        <div class="swatch" style="background:#15191e" title=".color-slate--5"></div><div class="swatch" style="background:#30030b" title=".color-rose--5"></div><div class="swatch" style="background:#08062d" title=".color-indigo--5"></div><div class="swatch" style="background:#042f21" title=".color-emerald--5"></div><div class="swatch" style="background:#332000" title=".color-amber--5"></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Type Scale</h2>
+    <h3>default <span class="ratio-label">1.067</span></h3>
+    <div class="type-row">
+      <code class="label">.font-7</code>
+      <span class="font-7">The quick brown fox jumps</span>
+    </div>
+    <div class="type-row">
+      <code class="label">.font-6</code>
+      <span class="font-6">The quick brown fox jumps</span>
+    </div>
+    <div class="type-row">
+      <code class="label">.font-5</code>
+      <span class="font-5">The quick brown fox jumps</span>
+    </div>
+    <div class="type-row">
+      <code class="label">.font-4</code>
+      <span class="font-4">The quick brown fox jumps</span>
+    </div>
+    <div class="type-row">
+      <code class="label">.font-3</code>
+      <span class="font-3">The quick brown fox jumps</span>
+    </div>
+    <div class="type-row">
+      <code class="label">.font-2</code>
+      <span class="font-2">The quick brown fox jumps</span>
+    </div>
+    <div class="type-row is-base">
+      <code class="label">.font-1</code>
+      <span class="font-1">The quick brown fox jumps</span>
+    </div>
+    <div class="type-row">
+      <code class="label">.font--1</code>
+      <span class="font--1">The quick brown fox jumps</span>
+    </div>
+    <div class="type-row">
+      <code class="label">.font--2</code>
+      <span class="font--2">The quick brown fox jumps</span>
+    </div>
+    <div class="type-row">
+      <code class="label">.font--3</code>
+      <span class="font--3">The quick brown fox jumps</span>
+    </div>
+    <div class="type-row">
+      <code class="label">.font--4</code>
+      <span class="font--4">The quick brown fox jumps</span>
+    </div>
+    <h3>small <span class="ratio-label">1.100</span></h3>
+    <div class="type-row">
+      <code class="label">.font-7@sm</code>
+      <span class="font-7@sm">The quick brown fox jumps</span>
+    </div>
+    <div class="type-row">
+      <code class="label">.font-6@sm</code>
+      <span class="font-6@sm">The quick brown fox jumps</span>
+    </div>
+    <div class="type-row">
+      <code class="label">.font-5@sm</code>
+      <span class="font-5@sm">The quick brown fox jumps</span>
+    </div>
+    <div class="type-row">
+      <code class="label">.font-4@sm</code>
+      <span class="font-4@sm">The quick brown fox jumps</span>
+    </div>
+    <div class="type-row">
+      <code class="label">.font-3@sm</code>
+      <span class="font-3@sm">The quick brown fox jumps</span>
+    </div>
+    <div class="type-row">
+      <code class="label">.font-2@sm</code>
+      <span class="font-2@sm">The quick brown fox jumps</span>
+    </div>
+    <div class="type-row is-base">
+      <code class="label">.font-1@sm</code>
+      <span class="font-1@sm">The quick brown fox jumps</span>
+    </div>
+    <div class="type-row">
+      <code class="label">.font--1@sm</code>
+      <span class="font--1@sm">The quick brown fox jumps</span>
+    </div>
+    <div class="type-row">
+      <code class="label">.font--2@sm</code>
+      <span class="font--2@sm">The quick brown fox jumps</span>
+    </div>
+    <div class="type-row">
+      <code class="label">.font--3@sm</code>
+      <span class="font--3@sm">The quick brown fox jumps</span>
+    </div>
+    <div class="type-row">
+      <code class="label">.font--4@sm</code>
+      <span class="font--4@sm">The quick brown fox jumps</span>
+    </div>
+    <h3>medium <span class="ratio-label">1.120</span></h3>
+    <div class="type-row">
+      <code class="label">.font-7@md</code>
+      <span class="font-7@md">The quick brown fox jumps</span>
+    </div>
+    <div class="type-row">
+      <code class="label">.font-6@md</code>
+      <span class="font-6@md">The quick brown fox jumps</span>
+    </div>
+    <div class="type-row">
+      <code class="label">.font-5@md</code>
+      <span class="font-5@md">The quick brown fox jumps</span>
+    </div>
+    <div class="type-row">
+      <code class="label">.font-4@md</code>
+      <span class="font-4@md">The quick brown fox jumps</span>
+    </div>
+    <div class="type-row">
+      <code class="label">.font-3@md</code>
+      <span class="font-3@md">The quick brown fox jumps</span>
+    </div>
+    <div class="type-row">
+      <code class="label">.font-2@md</code>
+      <span class="font-2@md">The quick brown fox jumps</span>
+    </div>
+    <div class="type-row is-base">
+      <code class="label">.font-1@md</code>
+      <span class="font-1@md">The quick brown fox jumps</span>
+    </div>
+    <div class="type-row">
+      <code class="label">.font--1@md</code>
+      <span class="font--1@md">The quick brown fox jumps</span>
+    </div>
+    <div class="type-row">
+      <code class="label">.font--2@md</code>
+      <span class="font--2@md">The quick brown fox jumps</span>
+    </div>
+    <div class="type-row">
+      <code class="label">.font--3@md</code>
+      <span class="font--3@md">The quick brown fox jumps</span>
+    </div>
+    <div class="type-row">
+      <code class="label">.font--4@md</code>
+      <span class="font--4@md">The quick brown fox jumps</span>
+    </div>
+    <h3>large <span class="ratio-label">1.2</span></h3>
+    <div class="type-row">
+      <code class="label">.font-7@lg</code>
+      <span class="font-7@lg">The quick brown fox jumps</span>
+    </div>
+    <div class="type-row">
+      <code class="label">.font-6@lg</code>
+      <span class="font-6@lg">The quick brown fox jumps</span>
+    </div>
+    <div class="type-row">
+      <code class="label">.font-5@lg</code>
+      <span class="font-5@lg">The quick brown fox jumps</span>
+    </div>
+    <div class="type-row">
+      <code class="label">.font-4@lg</code>
+      <span class="font-4@lg">The quick brown fox jumps</span>
+    </div>
+    <div class="type-row">
+      <code class="label">.font-3@lg</code>
+      <span class="font-3@lg">The quick brown fox jumps</span>
+    </div>
+    <div class="type-row">
+      <code class="label">.font-2@lg</code>
+      <span class="font-2@lg">The quick brown fox jumps</span>
+    </div>
+    <div class="type-row is-base">
+      <code class="label">.font-1@lg</code>
+      <span class="font-1@lg">The quick brown fox jumps</span>
+    </div>
+    <div class="type-row">
+      <code class="label">.font--1@lg</code>
+      <span class="font--1@lg">The quick brown fox jumps</span>
+    </div>
+    <div class="type-row">
+      <code class="label">.font--2@lg</code>
+      <span class="font--2@lg">The quick brown fox jumps</span>
+    </div>
+    <div class="type-row">
+      <code class="label">.font--3@lg</code>
+      <span class="font--3@lg">The quick brown fox jumps</span>
+    </div>
+    <div class="type-row">
+      <code class="label">.font--4@lg</code>
+      <span class="font--4@lg">The quick brown fox jumps</span>
+    </div>
+  </section>
+
+  <section>
+    <h2>Spacing</h2>
+    <p class="hint">height = spacing value at each step</p>
+    <div class="spacing-columns">
+    <div class="spacing-col">
+      <h3>default <span class="ratio-label">1.067</span></h3>
+      <div class="spacing-row">
+        <code class="label">.mt-10</code>
+        <div class="spacing-vis">
+          <div class="spacing-box" style="height:1.9127rem"></div>
+        </div>
+      </div>
+      <div class="spacing-row">
+        <code class="label">.mt-9</code>
+        <div class="spacing-vis">
+          <div class="spacing-box" style="height:1.7926rem"></div>
+        </div>
+      </div>
+      <div class="spacing-row">
+        <code class="label">.mt-8</code>
+        <div class="spacing-vis">
+          <div class="spacing-box" style="height:1.68rem"></div>
+        </div>
+      </div>
+      <div class="spacing-row">
+        <code class="label">.mt-7</code>
+        <div class="spacing-vis">
+          <div class="spacing-box" style="height:1.5745rem"></div>
+        </div>
+      </div>
+      <div class="spacing-row">
+        <code class="label">.mt-6</code>
+        <div class="spacing-vis">
+          <div class="spacing-box" style="height:1.4757rem"></div>
+        </div>
+      </div>
+      <div class="spacing-row">
+        <code class="label">.mt-5</code>
+        <div class="spacing-vis">
+          <div class="spacing-box" style="height:1.383rem"></div>
+        </div>
+      </div>
+      <div class="spacing-row">
+        <code class="label">.mt-4</code>
+        <div class="spacing-vis">
+          <div class="spacing-box" style="height:1.2962rem"></div>
+        </div>
+      </div>
+      <div class="spacing-row">
+        <code class="label">.mt-3</code>
+        <div class="spacing-vis">
+          <div class="spacing-box" style="height:1.2148rem"></div>
+        </div>
+      </div>
+      <div class="spacing-row">
+        <code class="label">.mt-2</code>
+        <div class="spacing-vis">
+          <div class="spacing-box" style="height:1.1385rem"></div>
+        </div>
+      </div>
+      <div class="spacing-row is-base">
+        <code class="label">.mt-1</code>
+        <div class="spacing-vis">
+          <div class="spacing-box" style="height:1.067rem"></div>
+        </div>
+      </div>
+      <div class="spacing-row">
+        <code class="label">.mt--1</code>
+        <div class="spacing-vis">
+          <div class="spacing-box" style="height:1rem"></div>
+        </div>
+      </div>
+      <div class="spacing-row">
+        <code class="label">.mt--2</code>
+        <div class="spacing-vis">
+          <div class="spacing-box" style="height:1.067rem"></div>
+        </div>
+      </div>
+      <div class="spacing-row">
+        <code class="label">.mt--3</code>
+        <div class="spacing-vis">
+          <div class="spacing-box" style="height:1.1385rem"></div>
+        </div>
+      </div>
+      <div class="spacing-row">
+        <code class="label">.mt--4</code>
+        <div class="spacing-vis">
+          <div class="spacing-box" style="height:1.2148rem"></div>
+        </div>
+      </div>
+      <div class="spacing-row">
+        <code class="label">.mt--5</code>
+        <div class="spacing-vis">
+          <div class="spacing-box" style="height:1.2962rem"></div>
+        </div>
+      </div>
+      <div class="spacing-row">
+        <code class="label">.mt--6</code>
+        <div class="spacing-vis">
+          <div class="spacing-box" style="height:1.383rem"></div>
+        </div>
+      </div>
+    </div>
+    <div class="spacing-col">
+      <h3>small <span class="ratio-label">1.100</span></h3>
+      <div class="spacing-row">
+        <code class="label">.mt-10@sm</code>
+        <div class="spacing-vis">
+          <div class="spacing-box" style="height:2.5937rem"></div>
+        </div>
+      </div>
+      <div class="spacing-row">
+        <code class="label">.mt-9@sm</code>
+        <div class="spacing-vis">
+          <div class="spacing-box" style="height:2.3579rem"></div>
+        </div>
+      </div>
+      <div class="spacing-row">
+        <code class="label">.mt-8@sm</code>
+        <div class="spacing-vis">
+          <div class="spacing-box" style="height:2.1436rem"></div>
+        </div>
+      </div>
+      <div class="spacing-row">
+        <code class="label">.mt-7@sm</code>
+        <div class="spacing-vis">
+          <div class="spacing-box" style="height:1.9487rem"></div>
+        </div>
+      </div>
+      <div class="spacing-row">
+        <code class="label">.mt-6@sm</code>
+        <div class="spacing-vis">
+          <div class="spacing-box" style="height:1.7716rem"></div>
+        </div>
+      </div>
+      <div class="spacing-row">
+        <code class="label">.mt-5@sm</code>
+        <div class="spacing-vis">
+          <div class="spacing-box" style="height:1.6105rem"></div>
+        </div>
+      </div>
+      <div class="spacing-row">
+        <code class="label">.mt-4@sm</code>
+        <div class="spacing-vis">
+          <div class="spacing-box" style="height:1.4641rem"></div>
+        </div>
+      </div>
+      <div class="spacing-row">
+        <code class="label">.mt-3@sm</code>
+        <div class="spacing-vis">
+          <div class="spacing-box" style="height:1.331rem"></div>
+        </div>
+      </div>
+      <div class="spacing-row">
+        <code class="label">.mt-2@sm</code>
+        <div class="spacing-vis">
+          <div class="spacing-box" style="height:1.21rem"></div>
+        </div>
+      </div>
+      <div class="spacing-row is-base">
+        <code class="label">.mt-1@sm</code>
+        <div class="spacing-vis">
+          <div class="spacing-box" style="height:1.1rem"></div>
+        </div>
+      </div>
+      <div class="spacing-row">
+        <code class="label">.mt--1@sm</code>
+        <div class="spacing-vis">
+          <div class="spacing-box" style="height:1rem"></div>
+        </div>
+      </div>
+      <div class="spacing-row">
+        <code class="label">.mt--2@sm</code>
+        <div class="spacing-vis">
+          <div class="spacing-box" style="height:1.1rem"></div>
+        </div>
+      </div>
+      <div class="spacing-row">
+        <code class="label">.mt--3@sm</code>
+        <div class="spacing-vis">
+          <div class="spacing-box" style="height:1.21rem"></div>
+        </div>
+      </div>
+      <div class="spacing-row">
+        <code class="label">.mt--4@sm</code>
+        <div class="spacing-vis">
+          <div class="spacing-box" style="height:1.331rem"></div>
+        </div>
+      </div>
+      <div class="spacing-row">
+        <code class="label">.mt--5@sm</code>
+        <div class="spacing-vis">
+          <div class="spacing-box" style="height:1.4641rem"></div>
+        </div>
+      </div>
+      <div class="spacing-row">
+        <code class="label">.mt--6@sm</code>
+        <div class="spacing-vis">
+          <div class="spacing-box" style="height:1.6105rem"></div>
+        </div>
+      </div>
+    </div>
+    <div class="spacing-col">
+      <h3>medium <span class="ratio-label">1.120</span></h3>
+      <div class="spacing-row">
+        <code class="label">.mt-10@md</code>
+        <div class="spacing-vis">
+          <div class="spacing-box" style="height:3.1058rem"></div>
+        </div>
+      </div>
+      <div class="spacing-row">
+        <code class="label">.mt-9@md</code>
+        <div class="spacing-vis">
+          <div class="spacing-box" style="height:2.7731rem"></div>
+        </div>
+      </div>
+      <div class="spacing-row">
+        <code class="label">.mt-8@md</code>
+        <div class="spacing-vis">
+          <div class="spacing-box" style="height:2.476rem"></div>
+        </div>
+      </div>
+      <div class="spacing-row">
+        <code class="label">.mt-7@md</code>
+        <div class="spacing-vis">
+          <div class="spacing-box" style="height:2.2107rem"></div>
+        </div>
+      </div>
+      <div class="spacing-row">
+        <code class="label">.mt-6@md</code>
+        <div class="spacing-vis">
+          <div class="spacing-box" style="height:1.9738rem"></div>
+        </div>
+      </div>
+      <div class="spacing-row">
+        <code class="label">.mt-5@md</code>
+        <div class="spacing-vis">
+          <div class="spacing-box" style="height:1.7623rem"></div>
+        </div>
+      </div>
+      <div class="spacing-row">
+        <code class="label">.mt-4@md</code>
+        <div class="spacing-vis">
+          <div class="spacing-box" style="height:1.5735rem"></div>
+        </div>
+      </div>
+      <div class="spacing-row">
+        <code class="label">.mt-3@md</code>
+        <div class="spacing-vis">
+          <div class="spacing-box" style="height:1.4049rem"></div>
+        </div>
+      </div>
+      <div class="spacing-row">
+        <code class="label">.mt-2@md</code>
+        <div class="spacing-vis">
+          <div class="spacing-box" style="height:1.2544rem"></div>
+        </div>
+      </div>
+      <div class="spacing-row is-base">
+        <code class="label">.mt-1@md</code>
+        <div class="spacing-vis">
+          <div class="spacing-box" style="height:1.12rem"></div>
+        </div>
+      </div>
+      <div class="spacing-row">
+        <code class="label">.mt--1@md</code>
+        <div class="spacing-vis">
+          <div class="spacing-box" style="height:1rem"></div>
+        </div>
+      </div>
+      <div class="spacing-row">
+        <code class="label">.mt--2@md</code>
+        <div class="spacing-vis">
+          <div class="spacing-box" style="height:1.12rem"></div>
+        </div>
+      </div>
+      <div class="spacing-row">
+        <code class="label">.mt--3@md</code>
+        <div class="spacing-vis">
+          <div class="spacing-box" style="height:1.2544rem"></div>
+        </div>
+      </div>
+      <div class="spacing-row">
+        <code class="label">.mt--4@md</code>
+        <div class="spacing-vis">
+          <div class="spacing-box" style="height:1.4049rem"></div>
+        </div>
+      </div>
+      <div class="spacing-row">
+        <code class="label">.mt--5@md</code>
+        <div class="spacing-vis">
+          <div class="spacing-box" style="height:1.5735rem"></div>
+        </div>
+      </div>
+      <div class="spacing-row">
+        <code class="label">.mt--6@md</code>
+        <div class="spacing-vis">
+          <div class="spacing-box" style="height:1.7623rem"></div>
+        </div>
+      </div>
+    </div>
+    <div class="spacing-col">
+      <h3>large <span class="ratio-label">1.2</span></h3>
+      <div class="spacing-row">
+        <code class="label">.mt-10@lg</code>
+        <div class="spacing-vis">
+          <div class="spacing-box" style="height:6.1917rem"></div>
+        </div>
+      </div>
+      <div class="spacing-row">
+        <code class="label">.mt-9@lg</code>
+        <div class="spacing-vis">
+          <div class="spacing-box" style="height:5.1598rem"></div>
+        </div>
+      </div>
+      <div class="spacing-row">
+        <code class="label">.mt-8@lg</code>
+        <div class="spacing-vis">
+          <div class="spacing-box" style="height:4.2998rem"></div>
+        </div>
+      </div>
+      <div class="spacing-row">
+        <code class="label">.mt-7@lg</code>
+        <div class="spacing-vis">
+          <div class="spacing-box" style="height:3.5832rem"></div>
+        </div>
+      </div>
+      <div class="spacing-row">
+        <code class="label">.mt-6@lg</code>
+        <div class="spacing-vis">
+          <div class="spacing-box" style="height:2.986rem"></div>
+        </div>
+      </div>
+      <div class="spacing-row">
+        <code class="label">.mt-5@lg</code>
+        <div class="spacing-vis">
+          <div class="spacing-box" style="height:2.4883rem"></div>
+        </div>
+      </div>
+      <div class="spacing-row">
+        <code class="label">.mt-4@lg</code>
+        <div class="spacing-vis">
+          <div class="spacing-box" style="height:2.0736rem"></div>
+        </div>
+      </div>
+      <div class="spacing-row">
+        <code class="label">.mt-3@lg</code>
+        <div class="spacing-vis">
+          <div class="spacing-box" style="height:1.728rem"></div>
+        </div>
+      </div>
+      <div class="spacing-row">
+        <code class="label">.mt-2@lg</code>
+        <div class="spacing-vis">
+          <div class="spacing-box" style="height:1.44rem"></div>
+        </div>
+      </div>
+      <div class="spacing-row is-base">
+        <code class="label">.mt-1@lg</code>
+        <div class="spacing-vis">
+          <div class="spacing-box" style="height:1.2rem"></div>
+        </div>
+      </div>
+      <div class="spacing-row">
+        <code class="label">.mt--1@lg</code>
+        <div class="spacing-vis">
+          <div class="spacing-box" style="height:1rem"></div>
+        </div>
+      </div>
+      <div class="spacing-row">
+        <code class="label">.mt--2@lg</code>
+        <div class="spacing-vis">
+          <div class="spacing-box" style="height:1.2rem"></div>
+        </div>
+      </div>
+      <div class="spacing-row">
+        <code class="label">.mt--3@lg</code>
+        <div class="spacing-vis">
+          <div class="spacing-box" style="height:1.44rem"></div>
+        </div>
+      </div>
+      <div class="spacing-row">
+        <code class="label">.mt--4@lg</code>
+        <div class="spacing-vis">
+          <div class="spacing-box" style="height:1.728rem"></div>
+        </div>
+      </div>
+      <div class="spacing-row">
+        <code class="label">.mt--5@lg</code>
+        <div class="spacing-vis">
+          <div class="spacing-box" style="height:2.0736rem"></div>
+        </div>
+      </div>
+      <div class="spacing-row">
+        <code class="label">.mt--6@lg</code>
+        <div class="spacing-vis">
+          <div class="spacing-box" style="height:2.4883rem"></div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Box Shadow</h2>
+    <div class="shadow-columns">
+    <div class="shadow-col">
+      <h3>default <span class="ratio-label">1.1</span></h3>
+      <div class="shadow-row is-base">
+        <code class="label">.shadow-1</code>
+        <div class="shadow-card shadow-1"></div>
+      </div>
+      <div class="shadow-row">
+        <code class="label">.shadow-2</code>
+        <div class="shadow-card shadow-2"></div>
+      </div>
+      <div class="shadow-row">
+        <code class="label">.shadow-3</code>
+        <div class="shadow-card shadow-3"></div>
+      </div>
+      <div class="shadow-row">
+        <code class="label">.shadow-4</code>
+        <div class="shadow-card shadow-4"></div>
+      </div>
+      <div class="shadow-row">
+        <code class="label">.shadow-5</code>
+        <div class="shadow-card shadow-5"></div>
+      </div>
+    </div>
+    <div class="shadow-col">
+      <h3>small <span class="ratio-label">1.132</span></h3>
+      <div class="shadow-row is-base">
+        <code class="label">.shadow-1@sm</code>
+        <div class="shadow-card shadow-1@sm"></div>
+      </div>
+      <div class="shadow-row">
+        <code class="label">.shadow-2@sm</code>
+        <div class="shadow-card shadow-2@sm"></div>
+      </div>
+      <div class="shadow-row">
+        <code class="label">.shadow-3@sm</code>
+        <div class="shadow-card shadow-3@sm"></div>
+      </div>
+      <div class="shadow-row">
+        <code class="label">.shadow-4@sm</code>
+        <div class="shadow-card shadow-4@sm"></div>
+      </div>
+      <div class="shadow-row">
+        <code class="label">.shadow-5@sm</code>
+        <div class="shadow-card shadow-5@sm"></div>
+      </div>
+    </div>
+    <div class="shadow-col">
+      <h3>medium <span class="ratio-label">1.210</span></h3>
+      <div class="shadow-row is-base">
+        <code class="label">.shadow-1@md</code>
+        <div class="shadow-card shadow-1@md"></div>
+      </div>
+      <div class="shadow-row">
+        <code class="label">.shadow-2@md</code>
+        <div class="shadow-card shadow-2@md"></div>
+      </div>
+      <div class="shadow-row">
+        <code class="label">.shadow-3@md</code>
+        <div class="shadow-card shadow-3@md"></div>
+      </div>
+      <div class="shadow-row">
+        <code class="label">.shadow-4@md</code>
+        <div class="shadow-card shadow-4@md"></div>
+      </div>
+      <div class="shadow-row">
+        <code class="label">.shadow-5@md</code>
+        <div class="shadow-card shadow-5@md"></div>
+      </div>
+    </div>
+    <div class="shadow-col">
+      <h3>large <span class="ratio-label">1.3</span></h3>
+      <div class="shadow-row is-base">
+        <code class="label">.shadow-1@lg</code>
+        <div class="shadow-card shadow-1@lg"></div>
+      </div>
+      <div class="shadow-row">
+        <code class="label">.shadow-2@lg</code>
+        <div class="shadow-card shadow-2@lg"></div>
+      </div>
+      <div class="shadow-row">
+        <code class="label">.shadow-3@lg</code>
+        <div class="shadow-card shadow-3@lg"></div>
+      </div>
+      <div class="shadow-row">
+        <code class="label">.shadow-4@lg</code>
+        <div class="shadow-card shadow-4@lg"></div>
+      </div>
+      <div class="shadow-row">
+        <code class="label">.shadow-5@lg</code>
+        <div class="shadow-card shadow-5@lg"></div>
+      </div>
+    </div>
+    </div>
+  </section>
+</body>
+</html>

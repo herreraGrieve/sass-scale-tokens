@@ -1,0 +1,74 @@
+@function toEm($size,$font-size){
+	@return ($size / $font-size) + em
+}
+
+@function prepend($list, $value) {
+	@return join($value, $list);
+}
+
+
+@function reverse($list, $recursive: false) {
+   $result: ();
+
+   @for $i from length($list)*-1 through -1 {
+      @if type-of(nth($list, abs($i))) == list and $recursive {
+        $result: append($result, reverse(nth($list, abs($i)), $recursive));      
+      }
+
+      @else {
+        $result: append($result, nth($list, abs($i)));
+      }
+   }
+
+   @return $result;
+}
+
+@function growthList($initVal,$ratio,$steps, $reverse: false){
+  $resultArray: $initVal;
+  $step: 1;
+  @while $step <= $steps{
+    $initVal: if($reverse, $initVal / $ratio, $initVal * $ratio);
+    $resultArray: append($resultArray,$initVal);
+    $step: $step + 1;
+  }
+  @return $resultArray
+}
+
+// Generates a tone map from a single base color.
+// Lighter tones are keyed 1…$lighter_steps; darker tones -1…-$darker_steps.
+// Lightness is interpolated in equal HSL steps toward the target endpoints.
+// Saturation shifts by ($base_saturation × $sat_increase) per step.
+@function fit_color_tones(
+    $base,
+    $lighter_steps,
+    $darker_steps,
+    $lighter_end,
+    $darker_end,
+    $lighter_sat_increase,
+    $darker_sat_increase,
+) {
+    $tones: (base: $base);
+    $s: saturation($base);
+    $l: lightness($base);
+
+    @for $i from 1 through $lighter_steps {
+        $t:      $i / $lighter_steps;
+        $step_l: $l + ($lighter_end * 1% - $l) * $t;
+        $step_s: $s + $s * $lighter_sat_increase * $i;
+        @if $step_s > 100% { $step_s: 100%; }
+        @if $step_s < 0%   { $step_s: 0%;   }
+        $tones: map-merge($tones, ($i: change-color($base, $saturation: $step_s, $lightness: $step_l)));
+    }
+
+    @for $i from 1 through $darker_steps {
+        $neg:    0 - $i;
+        $t:      $i / $darker_steps;
+        $step_l: $l - ($l - $darker_end * 1%) * $t;
+        $step_s: $s + $s * $darker_sat_increase * $i;
+        @if $step_s > 100% { $step_s: 100%; }
+        @if $step_s < 0%   { $step_s: 0%;   }
+        $tones: map-merge($tones, ($neg: change-color($base, $saturation: $step_s, $lightness: $step_l)));
+    }
+
+    @return $tones;
+}

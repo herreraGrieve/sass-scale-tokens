@@ -1,0 +1,5 @@
+$modifier:    map-get($fitcss, modifier);
+$mod:         $modifier;
+$mod_n:       if(map-get($fitcss, prefix_number_with_modifier), $modifier, '');
+$breakpoints: map-get($fitcss, breakpoints);
+$axis:        map-get($fitcss, axis);

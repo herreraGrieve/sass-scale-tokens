@@ -1,0 +1,33 @@
+@mixin scale(
+    $ratio,
+    $neg_ratio,
+    $max_step,
+    $min_step,
+    $base_positive,
+    $base_negative,
+    $reverse:  false,
+    $negative: true,
+) {
+    $positive_values: growthList($base_positive, $ratio, $max_step);
+    $total_scale: $positive_values;
+    $start_i: 1;
+
+    @if $negative {
+        $neg_values: reverse(growthList($base_negative, $neg_ratio, $min_step, $reverse));
+
+        // skip nth(1) of $positive_values  same boundary value as end of $neg_values
+        $total_scale: $neg_values;
+        @for $i from 2 through length($positive_values) {
+            $total_scale: append($total_scale, nth($positive_values, $i));
+        }
+
+        $start_i: ($min_step + 1) * -1;
+    }
+
+    $sc_i: $start_i;
+    @each $val in $total_scale {
+        @content($val, $sc_i);
+        $sc_i: $sc_i + 1;
+        @if $sc_i == 0 { $sc_i: 1; }
+    }
+}

@@ -1,0 +1,30 @@
+@if map-get(map-get($fitcss, modules), color) {
+    $_colors:        map-get($fitcss, colors);
+    $_lighter_steps: map-get($_colors, lighter_steps);
+    $_darker_steps:  map-get($_colors, darker_steps);
+
+    @include media_queries() using ($mq, $mq_i){
+        @each $hue_name, $hue_cfg in map-get($_colors, hues) {
+            $tones: fit_color_tones(
+                map-get($hue_cfg, base),
+                $_lighter_steps,
+                $_darker_steps,
+                map-get($hue_cfg, lighter_end),
+                map-get($hue_cfg, darker_end),
+                map-get($hue_cfg, lighter_sat_increase),
+                map-get($hue_cfg, darker_sat_increase),
+            );
+
+            @each $tone_name, $tone_value in $tones {
+                $tone_syntax: if($tone_name == 'base', '', $mod_n + $tone_name);
+
+                .color#{$mod + $hue_name + $tone_syntax + $mq} {
+                    color: $tone_value;
+                }
+                .bg#{$mod + $hue_name + $tone_syntax + $mq} {
+                    background-color: $tone_value;
+                }
+            }
+        }
+    }
+}

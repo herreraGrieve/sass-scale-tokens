@@ -1,0 +1,5 @@
+@mixin axis() {
+    @each $name, $conf in $axis {
+        @content(map-get($conf, property), map-get($conf, syntax));
+    }
+}

@@ -1,0 +1,43 @@
+@if map-get(map-get($fitcss, modules), spacing) {
+@include media_queries() using ($mq, $mq_i) {
+    $conf: map-get($fitcss, spacing);
+
+    .m#{$mod_n + 0 + $mq}{
+        margin: 0
+    }
+    .p#{$mod_n + 0 + $mq}{
+        padding: 0
+    }
+    @include axis() using ($axis_properties, $axis_syntax){
+        @include scale(
+            $ratio:         nth(map-get($conf, ratio), $mq_i),
+            $neg_ratio:     nth(map-get($conf, neg_ratio), $mq_i),
+            $max_step:      map-get($conf, max_step),
+            $min_step:      map-get($conf, min_step),
+            $base_positive: map-get($conf, base_positive),
+            $base_negative: map-get($conf, base_negative),
+        ) using ($sc_val, $sc_i){
+            .m#{$axis_syntax + $mod_n + $sc_i + $mq}{
+                @each $prop in $axis_properties {
+                    #{"margin-"+$prop}: $sc_val+rem;
+                }
+            }
+        }
+        @include scale(
+            $ratio:         nth(map-get($conf, ratio), $mq_i),
+            $neg_ratio:     nth(map-get($conf, neg_ratio), $mq_i),
+            $max_step:      map-get($conf, max_step),
+            $min_step:      map-get($conf, min_step),
+            $base_positive: map-get($conf, base_positive),
+            $base_negative: map-get($conf, base_negative),
+            $negative:      false,
+        ) using ($sc_val, $sc_i){
+            .p#{$axis_syntax + $mod_n + $sc_i + $mq}{
+                @each $prop in $axis_properties {
+                    #{"padding-"+$prop}: $sc_val+rem;
+                }
+            }
+        }
+    }
+}
+}

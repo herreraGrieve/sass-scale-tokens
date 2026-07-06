@@ -1,0 +1,183 @@
+// ─────────────────────────────────────────────────────────────────────────────
+//  fitcss — configuration template
+//  Edit only this file to customise the framework output.
+// ─────────────────────────────────────────────────────────────────────────────
+
+$fitcss: (
+
+    // ── Global syntax ─────────────────────────────────────────────────────────
+    //
+    // modifier
+    //   Character inserted between the class name and the scale number.
+    //   '-'  →  .m-1  .p-2
+    //   ''   →  .m1   .p2
+    modifier: '-',
+
+    // prefix_number_with_modifier
+    //   When true the modifier is prepended before numeric suffixes.
+    //   true  →  .m-1   false  →  .m1
+    prefix_number_with_modifier: true,
+
+    // breakpoint_logic
+    //   Direction used in generated @media rules.
+    //   'min-width'  →  mobile-first
+    //   'max-width'  →  desktop-first
+    breakpoint_logic: 'min-width',
+
+
+    // ── Breakpoints ───────────────────────────────────────────────────────────
+    //
+    // Each entry produces one @media rule and adds a responsive class variant.
+    // The iteration order is: base (no query), then each entry top-to-bottom.
+    // That order determines the index used by ratio/neg_ratio lists — index 1
+    // is always the base (no media query), index 2 is the first breakpoint, …
+    //
+    // size:    viewport width at which the breakpoint activates.
+    // syntax:  suffix appended to class names  →  .m-1\@sm
+    breakpoints: (
+        small:  (size: 510px, syntax: "\\@sm"),
+        medium: (size: 780px, syntax: "\\@md"),
+        large:  (size: 1020px, syntax: "\\@lg"),
+    ),
+
+
+    // ── Axis ──────────────────────────────────────────────────────────────────
+    //
+    // Defines which directional variants are generated for spacing utilities.
+    // Each entry maps to a class suffix and one or more CSS properties.
+    //
+    // property:  list of CSS properties the class sets.
+    // syntax:    single-character suffix  →  .mt, .mx, .py …
+    //
+    // Remove or add entries to control which directions are emitted.
+    axis: (
+        top:    (property: ("top"),           syntax: "t"),
+        bottom: (property: ("bottom"),        syntax: "b"),
+        left:   (property: ("left"),          syntax: "l"),
+        right:  (property: ("right"),         syntax: "r"),
+        y:      (property: ("top", "bottom"), syntax: "y"),
+        x:      (property: ("left", "right"), syntax: "x"),
+    ),
+
+
+    // ── Spacing scale ─────────────────────────────────────────────────────────
+    //
+    // ratio / neg_ratio
+    //   Space-separated list of multipliers, one per breakpoint iteration.
+    //   Position 1 = base (no media query), 2 = first breakpoint, and so on.
+    //   The list length must equal the number of breakpoints + 1.
+    //   Increase the value for larger viewports to produce a wider spacing jump.
+    //
+    // max_step      number of positive steps generated above the base value.
+    // min_step      number of negative steps generated below the base value.
+    // base_positive starting rem value for the positive (upward) scale.
+    // base_negative starting rem value for the negative (downward) scale.
+    spacing: (
+        ratio:         1.067 1.100 1.120 1.2,
+        neg_ratio:     1.067 1.100 1.120 1.2,
+        max_step:      10,
+        min_step:      5,
+        base_positive: 1,
+        base_negative: 1,
+    ),
+
+
+    // ── Box shadow scale ──────────────────────────────────────────────────────
+    //
+    // ratio    space-separated list of multipliers, one per breakpoint context.
+    // steps    number of shadow steps generated.
+    // base     starting blur value in rem.
+    box_shadow: (
+        ratio: 1.1 1.132 1.210 1.3,
+        steps: 4,
+        base:  0.25,
+    ),
+
+
+    // ── Font-size scale ───────────────────────────────────────────────────────
+    //
+    // Same structure as spacing. base_positive / base_negative are in em.
+    font_size: (
+        ratio:         1.067 1.100 1.120 1.2,
+        neg_ratio:     1.067 1.100 1.120 1.2,
+        max_step:      7,
+        min_step:      3,
+        base_positive: 1,
+        base_negative: 1,
+    ),
+
+
+    // ── Modules ───────────────────────────────────────────────────────────────
+    //
+    // Set any module to false to exclude it from the compiled output entirely.
+    modules: (
+        color:      true,
+        spacing:    true,
+        font_size:  true,
+        box_shadow: true,
+    ),
+
+
+    // ── Colors ────────────────────────────────────────────────────────────────
+    //
+    // Tones are generated automatically from each hue's base color.
+    //
+    // Global generation settings (apply to all hues):
+    //   lighter_steps   number of lighter tones generated above the base.
+    //   darker_steps    number of darker tones generated below the base.
+    //
+    // Per-hue settings (inside hues):
+    //   base                  the seed color — hue is taken from here.
+    //   lighter_end           target HSL lightness (0-100) of the lightest generated step.
+    //   darker_end            target HSL lightness (0-100) of the darkest generated step.
+    //   lighter_sat_increase  saturation added per lighter step, as a multiplier
+    //                         of the base saturation  (0 = no change).
+    //   darker_sat_increase   same, for darker steps.
+    //
+    // The reserved tone key 'base' omits the tone suffix  →  .color-slate
+    // Lighter steps are keyed 1, 2, …                     →  .color-slate-1
+    // Darker  steps are keyed -1, -2, …                   →  .color-slate--1
+    colors: (
+        lighter_steps: 5,
+        darker_steps:  5,
+
+        hues: (
+            slate: (
+                base:                 #64748B,
+                lighter_end:          95,
+                darker_end:           10,
+                lighter_sat_increase: 0,
+                darker_sat_increase:  0,
+            ),
+            rose: (
+                base:                 #F43F5E,
+                lighter_end:          97,
+                darker_end:           10,
+                lighter_sat_increase: 0,
+                darker_sat_increase:  0,
+            ),
+            indigo: (
+                base:                 #4F46E5,
+                lighter_end:          95,
+                darker_end:           10,
+                lighter_sat_increase: 0,
+                darker_sat_increase:  0,
+            ),
+            emerald: (
+                base:                 #10B981,
+                lighter_end:          95,
+                darker_end:           10,
+                lighter_sat_increase: 0,
+                darker_sat_increase:  0,
+            ),
+            amber: (
+                base:                 #F59E0B,
+                lighter_end:          97,
+                darker_end:           10,
+                lighter_sat_increase: 2,
+                darker_sat_increase:  2,
+            ),
+        ),
+    ),
+
+);
